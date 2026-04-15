@@ -143,89 +143,12 @@
                 <div class="events-carousel-container">
                     <div class="events-mask">
                         <div class="events-track">
-                            <article class="card event-card">
-                            <div class="card-image">
-                                <img src="media/evento1.png" alt="Evento 1">
-                                <div class="date-badge">
-                                    <span class="day">6</span>
-                                    <span class="month">MAI</span>
+                            <article class="card event-card event-card-add">
+                                <div class="event-card-add-content">
+                                    <div class="event-card-add-icon">+</div>
+                                    <h4>Adicionar evento</h4>
+                                    <p>Crie um novo evento para publicar no carrossel.</p>
                                 </div>
-                            </div>
-                            <div class="card-content">
-                                <h4>Comemorações do 7º aniversário da ESS na da UAc</h4>
-                                <p class="meta">🕒 14:00 - 16:00</p>
-                                <p class="meta">📍 Auditório Norte</p>
-                            </div>
-                            </article>
-                            <article class="card event-card">
-                            <div class="card-image">
-                                <img src="media/evento2.jpg" alt="Evento 2">
-                                <div class="date-badge">
-                                    <span class="day">30</span>
-                                    <span class="month">MAI</span>
-                                </div>
-                            </div>
-                            <div class="card-content">
-                                <h4>Open day 2026 | Enfermagem</h4>
-                                <p class="meta">🕒 09:00 - 12:00</p>
-                                <p class="meta">📍 Campus de Angra do Heroísmo</p>
-                            </div>
-                            </article>
-                            <article class="card event-card">
-                                <div class="card-image">
-                                    <img src="media/evento3.jpg" alt="Evento 3">
-                                    <div class="date-badge">
-                                        <span class="day">28</span>
-                                        <span class="month">OUT</span>
-                                    </div>
-                                </div>
-                                <div class="card-content">
-                                    <h4>V Congresso Internacional Enfermagem</h4>
-                                    <p class="meta">🕒 10:00 - 13:00</p>
-                                    <p class="meta">📍 Auditório Norte</p>
-                            </div>
-                            </article>
-                            <article class="card event-card">
-                            <div class="card-image">
-                                <img src="media/evento1.png" alt="Evento 1">
-                                <div class="date-badge">
-                                    <span class="day">6</span>
-                                    <span class="month">MAI</span>
-                                </div>
-                            </div>
-                            <div class="card-content">
-                                <h4>Comemorações do 7º aniversário da ESS na da UAc</h4>
-                                <p class="meta">🕒 14:00 - 16:00</p>
-                                <p class="meta">📍 Auditório Norte</p>
-                            </div>
-                            </article>
-                            <article class="card event-card">
-                            <div class="card-image">
-                                <img src="media/evento2.jpg" alt="Evento 2">
-                                <div class="date-badge">
-                                    <span class="day">30</span>
-                                    <span class="month">MAI</span>
-                                </div>
-                            </div>
-                            <div class="card-content">
-                                <h4>Open day 2026 | Enfermagem</h4>
-                                <p class="meta">🕒 09:00 - 12:00</p>
-                                <p class="meta">📍 Campus de Angra do Heroísmo</p>
-                            </div>
-                            </article>
-                            <article class="card event-card">
-                                <div class="card-image">
-                                    <img src="media/evento3.jpg" alt="Evento 3">
-                                    <div class="date-badge">
-                                        <span class="day">28</span>
-                                        <span class="month">OUT</span>
-                                    </div>
-                                </div>
-                                <div class="card-content">
-                                    <h4>V Congresso Internacional Enfermagem</h4>
-                                    <p class="meta">🕒 10:00 - 13:00</p>
-                                    <p class="meta">📍 Auditório Norte</p>
-                            </div>
                             </article>
                         </div>
                     </div>                   
@@ -246,25 +169,53 @@
                     </div>
                     <a href="#" class="btn btn-primary">Ver todos</a>
                 </div>
-                <div class="cards-flex">
-                    <article class="news-card">
-                        <img src="media/noticia1.jpg" alt="Notícia 1">
-                        <h4>“A intervenção profissional no processo de cuidar”</h4>
-                        <a href="#" class="link-blue">Saiba mais</a>
-                    </article>
-                    <article class="news-card">
-                        <img src="media/noticia2.jpg" alt="Notícia 2">
-                        <h4>Escola Superior de Saúde promove I Encontro de Cuidados Continuados</h4>
-                        <a href="#" class="link-blue">Saiba mais</a>
-                    </article>
-                    <article class="news-card">
-                        <img src="media/noticia3.jpg" alt="Notícia 3">
-                        <h4>Presidente da ESS toma posse</h4>
-                        <a href="#" class="link-blue">Saiba mais</a>
-                    </article>
+                
+                <div class="cards-flex" id="noticias-dinamicas">
                 </div>
             </div>
         </section>
+            <div id="evento-menu" class="menu-eventos-overlay">
+        <div class="menu-eventos-content">
+            <div class="menu-eventos-header">
+                <h3 id="menu-eventos-titulo">Novo Evento</h3>
+                <button id="fechar-menu-eventos" class="btn-close">&times;</button>
+            </div>
+            
+            <form id="form-evento">
+                <input type="hidden" id="evento-id">
+                
+                <div class="form-group">
+                    <label for="evento-nome">Título do Evento *</label>
+                    <input type="text" id="evento-nome" required placeholder="Ex: Open Day 2026">
+                </div>
+
+                <div class="form-group-row">
+                    <div class="form-group">
+                        <label for="evento-data">Data *</label>
+                        <input type="date" id="evento-data" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="evento-hora">Hora *</label>
+                        <input type="time" id="evento-hora" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="evento-local">Local *</label>
+                    <input type="text" id="evento-local" required placeholder="Ex: Auditório Norte">
+                </div>
+
+                <div class="form-group">
+                    <label for="evento-desc">Descrição / Detalhes</label>
+                    <textarea id="evento-desc" rows="3" placeholder="Breve descrição do evento..."></textarea>
+                </div>
+
+                <div class="menu-eventos-actions">
+                    <button type="submit" class="btn btn-primary">Guardar Evento</button>
+                </div>
+            </form>
+        </div>
+    </div>
     </main>
 
     <footer id="contactos" class="footer">
@@ -352,11 +303,14 @@
             </div>
         </div>
         <div class="container footer-bottom">
-            <p>&copy; 2026 Centro Académico Clínico dos Açores. Todos os direitos reservados.</p>
+            <p><button id="btn-admin">&copy;</button> 2026 Centro Académico Clínico dos Açores. Todos os direitos reservados.</p>
         </div>
     </footer>
     <button id="to-top" class='btn btn-primary' title="Para o Topo">Voltar ao Topo</button>
-    
+    <script src="/JavaScript/indexedDB.js"></script>   
+    <script src="/JavaScript/newsletter.js"></script>
+    <script src="/JavaScript/eventos.js"></script>
+    <script src="/JavaScript/noticias.js"></script>
     <script src="/JavaScript/script.js"></script>
     <script src="/JavaScript/graficos.js"></script>
 </body>

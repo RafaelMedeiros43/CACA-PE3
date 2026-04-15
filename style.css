@@ -526,6 +526,106 @@ ul {
     flex-direction: column;
 }
 
+.event-card-actions {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    padding: 24px;
+    background: rgba(11, 37, 69, 0.78);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease;
+    z-index: 2;
+}
+
+.event-card {
+    position: relative;
+}
+
+.event-action-btn {
+    width: 100%;
+    max-width: 180px;
+    padding: 12px 16px;
+    border: none;
+    border-radius: 999px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.event-edit-btn {
+    background: var(--white);
+    color: var(--primary-color);
+}
+
+.event-delete-btn {
+    background: red;
+    color: var(--white);
+}
+
+.event-action-btn:hover {
+    transform: scale(1.04);
+}
+
+.admin-mode .event-card:hover .event-card-actions,
+.admin-mode .event-card:focus-within .event-card-actions {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.event-card-add {
+    display: none;
+    min-height: 100%;
+    border: 2px dashed var(--accent-color);
+    background: linear-gradient(180deg, rgba(27, 133, 114, 0.08), rgba(11, 37, 69, 0.03));
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.admin-mode .event-card-add {
+    display: flex;
+}
+
+.event-card-add:hover {
+    transform: translateY(-5px);
+    border-color: var(--accent-color1);
+}
+
+.event-card-add-content {
+    padding: 28px 22px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    color: var(--primary-color);
+}
+
+.event-card-add-icon {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    background: var(--accent-color);
+    color: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.2rem;
+    font-weight: 700;
+    box-shadow: 0 10px 20px rgba(27, 133, 114, 0.25);
+}
+
+.event-card-add p {
+    color: var(--grey);
+    font-size: 0.95rem;
+}
+
 .card-image {
     position: relative;
     height: 200px;
@@ -563,6 +663,8 @@ ul {
 
 .card-content {
     padding: 20px;
+    position: relative;
+    z-index: 1;
 }
 
 .card-content h4 {
@@ -575,6 +677,135 @@ ul {
     color: var(--grey);
     margin-bottom: 5px;
 }
+
+/* --- MENU DE EVENTOS --- */
+.menu-eventos-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(11, 37, 69, 0.6); 
+    backdrop-filter: blur(5px); 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    opacity: 0;
+    pointer-events: none; 
+    transition: opacity 0.3s ease;
+}
+
+.menu-eventos-overlay.show {
+    opacity: 1;
+    pointer-events: auto; 
+}
+
+.menu-eventos-content {
+    background: var(--bg-color);
+    width: 90%;
+    max-width: 500px;
+    border-radius: 16px;
+    padding: 35px;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+    transform: scale(0.95) translateY(-20px);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.menu-eventos-overlay.show .menu-eventos-content {
+    transform: scale(1) translateY(0);
+}
+
+.menu-eventos-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid var(--bg-light); 
+    color: var(--primary-color);
+}
+
+.menu-eventos-header h3 {
+    font-size: 1.4rem;
+}
+
+.btn-close {
+    background: var(--bg-light);
+    border: none;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    font-size: 1.5rem;
+    line-height: 1;
+    cursor: pointer;
+    color: var(--grey);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.2s ease;
+}
+
+.btn-close:hover {
+    background: var(--grey) ;
+    color: red;
+    transform: rotate(90deg); 
+}
+
+.form-group {
+    margin-bottom: 18px;
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: var(--primary-color);
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid var(--white);
+    border-radius: 8px;
+    background-color: var(--white);
+    color: var(--text-color);
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+}
+
+.form-group-row {
+    display: flex;
+    gap: 15px;
+}
+
+.form-group-row .form-group {
+    flex: 1;
+}
+
+.menu-eventos-actions {
+    margin-top: 30px;
+}
+
+.menu-eventos-actions .btn-primary {
+    width: 100%;
+    padding: 14px;
+    font-size: 1.05rem;
+}
+
+.botao-editar {
+    background-color: var(--accent-color1);
+    color: white
+}
+
+.botao-apagar {
+    background-color: red !important; 
+    color: white;
+}
+
 
 /*
     SECTION: NEWS
@@ -912,7 +1143,7 @@ ul {
 
     .event-card {
         max-width: 250px;
-    }
+    }  
     .partners-flex {
         flex-direction: column;
     }
@@ -1019,6 +1250,32 @@ html[data-theme="dark"] .footer-form input {
 html[data-theme="dark"] .footer-bottom {
     border-top-color: var(--grey);
 }
+
+html[data-theme="dark"] .menu-eventos-content {
+    background-color: var(--bg-color); 
+    border: 1px solid var(--grey);
+}
+
+html[data-theme="dark"] .menu-eventos-header h3,
+html[data-theme="dark"] .form-group label {
+    color: var(--white);
+}
+
+html[data-theme="dark"] .btn-close {
+    color: var(--white);
+}
+
+html[data-theme="dark"] .btn-close:hover {
+    color: red; 
+}
+
+html[data-theme="dark"] .form-group input,
+html[data-theme="dark"] .form-group textarea {
+    background-color: var(--primary-color);
+    border-color: var(--grey);
+    color: var(--white);
+}
+
 
 /*
     ACCESSIBILITY (REDUCED MOTION)

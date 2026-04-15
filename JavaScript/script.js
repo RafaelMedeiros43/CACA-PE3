@@ -29,6 +29,10 @@ document.addEventListener('DOMContentLoaded', () => {
         ensino: 'Ola, gostaria de saber mais sobre o vosso programa de ensino'
     }
 
+    //Admin Button
+    const btnAdmin = document.getElementById("btn-admin")
+
+
     //Back to Top Button
     const toTopbtn = document.getElementById("to-top")
     
@@ -82,66 +86,7 @@ document.addEventListener('DOMContentLoaded', () => {
 }
 
 
-    //Checks if each user input is correct, if not correct, makes the border of the incorrect input red
-    function validadeForm(event) {
-        event.preventDefault()
-    //Here all border colors and the feedback messages are resetted 
-        nomeF.style.border = ''
-        telemovelF.style.border = ''
-        emailF.style.border = ''
-        mensagemEscrita.style.border= ''
-        mensagemFeedback.textContent = ''
-
-        let error = false //Created an boolean to check if any error is detected
-
-        const regexpNome = /^[a-zA-ZÀ-ÿ\s]{2,}$/       
-        const regexpEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-
-        const indicativo = document.getElementById("indicativo").value
-        const numeroInserido = telemovelF.value.trim().replace(/\s/g, '')
-        const país = {
-            "+351": /^9[1236]\d{7}$/, // Portugal
-            "+49": /^1[5-7]\d{8,9}$/, // Alemanha
-            "+61": /^4\d{8}$/, // Austrália
-            "+55": /^[1-9]{2}9\d{8}$/, // Brasil
-            "+1": /^[2-9]\d{9}$/, // EUA 
-            "+33": /^[67]\d{8}$/, // França
-            "+39": /^3\d{8,9}$/, // Itália
-            "+81": /^[789]0\d{8}$/, // Japão
-            "+44": /^7\d{9}$/, // Reino Unido
-            "+41": /^7[5-9]\d{7}$/ // Suíça  
-        }
-        const regexpTelemovel = país[indicativo] 
-        if (mensagemEscrita.value ===""){
-            error = true
-            mensagemEscrita.style.border = "2px solid red"
-        }
-        //If value inserted by user is blank, changes border to red and makes error var true
-        if (!regexpNome.test(nomeF.value.trim())) {
-            error = true
-            nomeF.style.border = "2px solid red"
-        }
-        //If value inserted by user is not 9 in lenght, makes border red and error set to true
-        if (regexpTelemovel.test(numeroInserido) === false) {
-            error = true
-            telemovelF.style.border = "2px solid red"
-        }
-        //If value inserted by user doesnt contain an @ makes border red and sets error to true
-        if (!regexpEmail.test(emailF.value.trim())) {
-            error = true
-            emailF.style.border = "2px solid red"
-        }
-        //If error is true, changes the feedback message that was blankk, and makes the color red to emphasize user error
-        if (error === true) {
-            mensagemFeedback.textContent = "Por favor, corrija os campos a vermelho."
-            mensagemFeedback.style.color = "red"
-        } else {//If error is not true, shows sucecs message and makes the text color green to show correct submission by the user
-            mensagemFeedback.textContent = "Sucesso! A sua inscrição foi enviada."
-            mensagemFeedback.style.color = "#29B89E" 
-            //Resets the form only when there are no errors
-            form.reset()
-        }
-    }
+    
     //--- Dropdown do indicativo ---
     dropdownSelectedIndicativo.addEventListener('click', function(event) {
     dropdownOptionsIndicativo.classList.toggle('open')
@@ -296,65 +241,72 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // --- Eventos Carousel ---
-    // Initializes the specific logic for the Events carousel (sliding cards based on width).
     function initEventCarousel() {
-        if (!eventTrack || eventCards.length === 0) return
+    const eventTrack = document.querySelector('.events-track')
+    const eventWrapper = document.querySelector('.events-mask')
+    const eventPrevBtn = document.getElementById('event-prev')
+    const eventNextBtn = document.getElementById('event-next')
+    
+    let eventIndex = 0;
 
-        const eventWrapper = document.querySelector('.events-mask')
-        let eventIndex = 0
+    function updateEventCarousel() {
+        const cartao = eventTrack.querySelector('.event-card')
+        if (!cartao) return
 
-        // Updates the visual position of the carousel based on the current index and card width
-        function updateEventCarousel() {
-            const cardWidth = eventCards[0].offsetWidth
-            const style = window.getComputedStyle(eventTrack)
-            const gap = parseFloat(style.gap) || 0
-            const slideWidth = cardWidth + gap
+        const espaco = parseFloat(window.getComputedStyle(eventTrack).gap) || 0
+        const tamanhoSalto = cartao.offsetWidth + espaco
 
-            const trackWidth = eventTrack.scrollWidth
-            const containerWidth = eventWrapper.offsetWidth
-            const maxTranslate = Math.max(0, trackWidth - containerWidth)
-            
-            let translateX = eventIndex * slideWidth
-            
-            // Clamp translation to avoid dead space at the end
-            if (translateX > maxTranslate) {
-                translateX = maxTranslate
-            }
-            
-            eventTrack.style.transform = `translateX(-${translateX}px)`
+        const limiteMaximo = Math.max(0, eventTrack.scrollWidth - eventWrapper.offsetWidth)
+        
+        let movimento = eventIndex * tamanhoSalto
+        
+        if (movimento >= limiteMaximo) {
+            movimento = limiteMaximo
+            eventIndex = Math.floor(limiteMaximo / tamanhoSalto);
         }
 
-        // Event listener for the "Next" button: calculates boundaries and advances if possible
-        eventNextBtn.addEventListener('click', () => {
-            const cardWidth = eventCards[0].offsetWidth
-            const style = window.getComputedStyle(eventTrack)
-            const gap = parseFloat(style.gap) || 0
-            const slideWidth = cardWidth + gap
-            
-            const trackWidth = eventTrack.scrollWidth
-            const containerWidth = eventWrapper.offsetWidth
-            const maxTranslate = Math.max(0, trackWidth - containerWidth)
-
-            if (eventIndex * slideWidth < maxTranslate) {
-                eventIndex++
-                updateEventCarousel()
-            }
-        })
-
-        // Event listener for the "Previous" button: decreases index if not at the start
-        eventPrevBtn.addEventListener('click', () => {
-            if (eventIndex > 0) eventIndex--
-            updateEventCarousel()
-        })
-
-        window.addEventListener('resize', updateEventCarousel)
+        eventTrack.style.transform = `translateX(-${movimento}px)`
     }
+
+    eventNextBtn.addEventListener('click', () => {
+        eventIndex++
+        updateEventCarousel()
+    });
+
+    eventPrevBtn.addEventListener('click', () => {
+        if (eventIndex > 0) {
+            eventIndex--
+            updateEventCarousel()
+        }
+    });
+
+    window.addEventListener('resize', updateEventCarousel)
+}
+
+
+    // --- Modo Admin ---
+    let isAdmin = localStorage.getItem('caca_admin') === 'true'
+    function initAdminClass() {
+        if (isAdmin) {
+            document.body.classList.add('admin-mode')
+        } else {
+            document.body.classList.remove('admin-mode')
+        }
+    }
+
+    function toggleAdmin(event) {
+        isAdmin = !isAdmin
+        localStorage.setItem('admin_state', isAdmin)
+        initAdminClass()   
+    }
+
 
     /* 
     INITIALIZATION & EVENT LISTENERS
     */
     
     // Initialize Logic
+    initAdminClass()
     initCarousel()
     initTheme()
     initEventCarousel()
@@ -367,13 +319,13 @@ document.addEventListener('DOMContentLoaded', () => {
     toTopbtn.addEventListener("click", voltarAoTopo)
     themeToggleBtn.addEventListener('click', toggleTheme)
     headerBtn.addEventListener('click', toggleMenu);
+    btnAdmin.addEventListener('click', toggleAdmin)
     
     navItems.forEach(link => {
         link.addEventListener('click', () => {
             menuLinks.classList.remove('active');
         });
     });
-    form.addEventListener("submit", validadeForm)
 
     
     window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
@@ -381,4 +333,9 @@ document.addEventListener('DOMContentLoaded', () => {
             setTheme(e.matches ? 'dark' : 'light')
         }
     })
-})
+    if (isAdmin) {
+    console.log('21')
+}
+}
+)
+    
