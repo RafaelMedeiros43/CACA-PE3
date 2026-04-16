@@ -15,10 +15,10 @@ const pinoVermelho = new L.Icon({
 
 document.addEventListener('DOMContentLoaded', () => {
     // INICIALIZA O MAPA PRINCIPAL
-    const contentorMapa = document.getElementById('mapa');
+    const contentorMapa = document.getElementById('mapa-principal');
     
     if (contentorMapa) {
-        mapaPrincipal = L.map('mapa').setView([37.7412, -25.6756], 13);
+        mapaPrincipal = L.map('mapa-principal').setView([37.7412, -25.6756], 13);
         
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; OpenStreetMap contributors'
@@ -35,13 +35,18 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
-async function abrirMapaPrincipal(localizacao) {
-    const mapaPrincipal = document.getElementById('mapa-princiapal');
-    const titulo = document.getElementById('titulo-mapa-principal');
-    const containerMapa = document.getElementById('mapa-principal-container');
+async function abrirMapaEventos(localizacao) {
+    const mapaEventos = document.getElementById('mapa-eventos');
+    const titulo = document.getElementById('titulo-mapa-eventos');
+    const containerMapa = document.getElementById('mapa-eventos-container');
+
+    if (!mapaEventos || !titulo || !containerMapa) {
+        console.error('Elementos do modal de mapa não encontrados.');
+        return;
+    }
 
     // Abre o mapa e muda o título para a morada
-    mapaPrincipal.classList.add('show');
+    mapaEventos.classList.add('show');
     titulo.textContent = localizacao;
 
     try {
@@ -54,7 +59,7 @@ async function abrirMapaPrincipal(localizacao) {
             
             if(!mapaPrincipalInstancia) {
                 // Se for a primeira vez que abre o pop-up, cria o mapa
-                mapaPrincipalInstancia = L.map('mapa-modal-container').setView([lat, lon], 15);
+                mapaPrincipalInstancia = L.map('mapa-eventos-container').setView([lat, lon], 15);
                 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                     attribution: '&copy; OpenStreetMap'
                 }).addTo(mapaPrincipalInstancia);

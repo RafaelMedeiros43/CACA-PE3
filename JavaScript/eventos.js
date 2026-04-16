@@ -169,16 +169,16 @@ document.addEventListener('DOMContentLoaded', function() {
             })
         })
 
-        const botaoLocal = document.querySelectorAll('.botao-local');
+        const botaoLocal = document.querySelectorAll('.local-clicavel');
         botaoLocal.forEach(function(span){
             span.addEventListener('click', function(clique){
                 const local = clique.target.getAttribute('data-local');
-                abrirMapaModal(local);
+                abrirMapaEventos(local);
             });
         });
 
         document.getElementById('fechar-mapa-modal').addEventListener('click', function(){
-            document.getElementById('modal-mapa').classList.remove('show');
+            document.getElementById('mapa-eventos').classList.remove('show');
         });
     }
 
