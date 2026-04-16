@@ -813,6 +813,10 @@ ul {
 /*
     SECTION: NEWS
 */
+
+.news-title{
+    margin-top:3.5rem
+}
 .header-between {
     display: flex;
     justify-content: space-between;

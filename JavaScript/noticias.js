@@ -4,44 +4,47 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (!areaNoticias) return
 
     try {
-        const linkRSS = 'https://news.google.com/rss/search?q=saude+portugal&hl=pt-PT&gl=PT&ceid=PT:pt-150'
-        const linkAPI = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(linkRSS)}`
+       
+        const API_KEY = 'c6d03bcdc7e064e8809605567b812f83';
+        const url = `https://gnews.io/api/v4/search?q=saúde&country=pt&max=3&apikey=${API_KEY}`
 
-        const resposta = await fetch(linkAPI)
-        const dados = await resposta.json();
+        const resposta = await fetch(url)
+        const dados = await resposta.json()
 
-        if (dados.status === 'ok') {
+        if (dados.articles && dados.articles.length > 0) {
             
-            let asMinhasImagens = [
-                'noticia1.jpg', 'noticia2.jpg', 'noticia3.jpg', 
-                'noticia4.jpg', 'noticia5.jpg', 'noticia6.jpg'
-            ];
-
-            asMinhasImagens.sort(() => Math.random() - 0.5)
-
-
             let htmlParaMostrar = ''
-            const ultimasTresNoticias = dados.items.slice(0, 3)
 
-            ultimasTresNoticias.forEach((noticia, indice) => {
+            dados.articles.forEach(noticia => {
                 
-                const imagemEscolhida = `media/${asMinhasImagens[indice]}`
-                
-                const tituloLimpo = noticia.title.split(' - ')[0]
+               
+                const imagemEscolhida = noticia.image
+                const linkDaNoticia = noticia.url
+                const titulo = noticia.title
+                let tituloFinal
+                if (titulo.length > 30) {
+                    tituloFinal = titulo.substring(0, 75) + '...'
+                }
 
                 htmlParaMostrar += `
                     <article class="news-card">
-                        <img src="${imagemEscolhida}" alt="Notícia">
-                        <h4>${tituloLimpo}</h4>
-                        <a href="${noticia.link}" target="_blank" class="link-blue">Ler artigo completo</a>
-                    </article>
-                `
+                        <div class="card-image">
+                            <img src="${imagemEscolhida}" alt="Notícia">
+                        </div>
+                        <div class="news-title">
+                            <h4>${tituloFinal}</h4>
+                        </div>
+                        <a href="${linkDaNoticia}" target="_blank" class="link-blue">Ler artigo completo</a>
+                    </article>`
             })
 
             areaNoticias.innerHTML = htmlParaMostrar
+            
+        } else {
+            areaNoticias.innerHTML = '<p>Não foi possível carregar as notícias de saúde de momento.</p>'
         }
 
     } catch (erro) {
-        areaNoticias.innerHTML = '<p>Erro ao carregar notícias.</p>'
+        areaNoticias.innerHTML = '<p>Erro ao ligar ao servidor de notícias.</p>'
     }
 })
