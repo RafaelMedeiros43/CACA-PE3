@@ -594,7 +594,7 @@ ul {
 }
 
 .event-card-add:hover {
-    transform: translateY(-5px);
+    transform:scale(1.005);
     border-color: var(--accent-color1);
 }
 
@@ -858,7 +858,11 @@ ul {
 .autocomplete-list li:last-child {
     border-bottom: none;
 }
-
+.local-clicavel{
+    cursor:pointer; 
+    text-decoration:underline; 
+    color:var(--accent-color1);
+}
 .autocomplete-list li:hover {
     background: var(--accent-color);
     color: var(--white);

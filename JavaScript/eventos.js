@@ -73,6 +73,10 @@ document.addEventListener('DOMContentLoaded', function() {
     function desenharEventosNoEcra() {
         carregarEventosDB().then(function(listaDeEventos) {
             let htmlParaMostrar = ""
+            const listaImagens = [
+                "media/evento1.png",
+                "media/evento2.jpg",
+                "media/evento3.jpg"]
 
             listaDeEventos.forEach(function(evento) {
                 // Encurta a morada
@@ -83,11 +87,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (localCurto.length > 25) {
                     localCurto = localCurto.substring(0, 22) + '...';
                 }
+                const imgRandom = Math.floor(Math.random() * listaImagens.length);
+                const imagem = listaImagens[imgRandom]
 
                 htmlParaMostrar += `
                 <article class="card event-card">
                     <div class="card-image">
-                        <img src="media/evento1.png" alt="Evento">
+                        <img src="${imagem}" alt="Evento">
                     </div>
 
                     <div class="event-card-actions">
@@ -96,10 +102,9 @@ document.addEventListener('DOMContentLoaded', function() {
                     </div>
                     <div class="card-content">
                         <h4>${evento.nome}</h4>
-
                         <p class="meta">
                             🕒 ${evento.hora} | 📍
-                            <span class="local-clicavel" data-id="${evento.id}" data-local="${evento.local}" title="${evento.local}" style="cursor:pointer; text-decoration:underline; color:var(--accent-color1);">
+                            <span class="local-clicavel" data-id="${evento.id}" data-local="${evento.local}" title="${evento.local}">
                                 ${localCurto}
                             </span>
                         </p>

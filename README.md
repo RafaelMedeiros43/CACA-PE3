@@ -60,4 +60,4 @@ Descrição das APIs externas utilizadas e como foram integradas:
     API do Gnews:
         É usada para transmitir notícias reais ao utilizador sobre o ambiente da saúde em Porgugal.
         O ficheiro noticias.js realiza um pedido à API da GNews, filtrando pelas palavras-chave saúde e Portugal com limite de 3 resultados.
-        Como os títulos da API podem ser muito extensos, implementámos uma lógica de truncagem podendo ter no máximo 75 caracteres para manter a integridade do design dos cartões.
+        Como os títulos da API podem ser muito extensos, implementámos uma lógica de truncagem podendo ter no máximo 75 caracteres para manter a integridade do design dos cartões.    
