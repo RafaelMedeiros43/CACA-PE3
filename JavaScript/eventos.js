@@ -4,19 +4,87 @@ document.addEventListener('DOMContentLoaded', function() {
     const menuLateral = document.getElementById('evento-menu');
     const areaDosEventos = document.querySelector('.events-track');
 
-    // --- INICIAR A BASE DE DADOS ---
+    // INICIA A BASE DE DADOS
     initDB().then(function() {
         desenharEventosNoEcra()
     });
 
+    //Auto complete da localização
+    const inputLocal = document.getElementById('evento-local');
+    const formGroupLocal = inputLocal.parentElement;
 
-    // --- DESENHAR OS EVENTOS ---
+    formGroupLocal.style.position = 'relative';
+
+    const listaSugestoes = document.createElement('ul');
+    listaSugestoes.className = 'autocomplete-list';
+    listaSugestoes.style.display = 'none';
+    formGroupLocal.appendChild(listaSugestoes);
+
+    let timeoutPesquisa;
+
+    inputLocal.addEventListener('input', function(){
+        clearTimeout(timeoutPesquisa);
+        const pesquisa = this.value;
+
+        if (pesquisa.length < 3) {
+            listaSugestoes.style.display = 'none';
+            return;
+        }
+
+        timeoutPesquisa = setTimeout(async () => {
+            try {
+                
+                const resposta = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(pesquisa)}&countrycodes=pt&limit=5`);
+                const dados = await resposta.json();
+
+                listaSugestoes.innerHTML = ''; // Limpa as pesquisas antigas
+
+                if (dados.length > 0) {
+                    listaSugestoes.style.display = 'block';
+
+                    dados.forEach(local => {
+                        const li = document.createElement('li');
+                        li.textContent = local.display_name;
+
+                        li.addEventListener('click', () => {
+                            inputLocal.value = local.display_name; // Preenche o input
+                            listaSugestoes.style.display = 'none'; // Esconde a lista
+                        });
+
+                        listaSugestoes.appendChild(li);
+                    });
+                } else {
+                    listaSugestoes.style.display = 'none';
+                }
+            } catch (erro) {
+                console.error("Erro ao procurar sugestões", erro);
+            }
+        }, 500);
+    });
+
+    // Fecha a lista ao clicar noutro sítio
+    document.addEventListener('click', function(clique) {
+        if (!formGroupLocal.contains(clique.target)) {
+            listaSugestoes.style.display = 'none';
+        }
+    });
+
+    // DESENHA OS EVENTOS
     function desenharEventosNoEcra() {
         carregarEventosDB().then(function(listaDeEventos) {
             let htmlParaMostrar = ""
 
             listaDeEventos.forEach(function(evento) {
-               htmlParaMostrar += `
+                // Encurta a morada
+                let localCurto = evento.local;
+                if (localCurto.includes(',')) {
+                    localCurto = localCurto.split(',')[0];
+                }
+                if (localCurto.length > 25) {
+                    localCurto = localCurto.substring(0, 22) + '...';
+                }
+
+                htmlParaMostrar += `
                 <article class="card event-card">
                     <div class="card-image">
                         <img src="media/evento1.png" alt="Evento">
@@ -28,10 +96,16 @@ document.addEventListener('DOMContentLoaded', function() {
                     </div>
                     <div class="card-content">
                         <h4>${evento.nome}</h4>
-                        <p class="meta">🕒 ${evento.hora} | 📍 ${evento.local}</p>
-                        <div id="weather-${evento.id}">
-                            ola
-                        </div>
+
+                        <p class="meta">
+                            🕒 ${evento.hora} | 📍
+                            <span class="local-clicavel" data-id="${evento.id}" data-local="${evento.local}" title="${evento.local}" style="cursor:pointer; text-decoration:underline; color:var(--accent-color1);">
+                                ${localCurto}
+                            </span>
+                        </p>
+                        
+                        <div id="weather-${evento.id}"></div>
+                        
                     </div>
                 </article>
             `;
@@ -52,7 +126,6 @@ document.addEventListener('DOMContentLoaded', function() {
             ativarBotoes()
         })
     }
-
 
     function ativarBotoes() {
         
@@ -75,7 +148,6 @@ document.addEventListener('DOMContentLoaded', function() {
             })
         })
 
-
         const botoesEditar = document.querySelectorAll('.botao-editar');
         botoesEditar.forEach(function(botao) {
             botao.addEventListener('click', function(clique) {
@@ -96,6 +168,18 @@ document.addEventListener('DOMContentLoaded', function() {
                 })
             })
         })
+
+        const botaoLocal = document.querySelectorAll('.botao-local');
+        botaoLocal.forEach(function(span){
+            span.addEventListener('click', function(clique){
+                const local = clique.target.getAttribute('data-local');
+                abrirMapaModal(local);
+            });
+        });
+
+        document.getElementById('fechar-mapa-modal').addEventListener('click', function(){
+            document.getElementById('modal-mapa').classList.remove('show');
+        });
     }
 
     formulario.addEventListener('submit', function(e) {
@@ -128,5 +212,4 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('fechar-menu-eventos').addEventListener('click', function() {
         menuLateral.classList.remove('show')
     })
-
 })

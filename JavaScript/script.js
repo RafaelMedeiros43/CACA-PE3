@@ -106,7 +106,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     })
 
-    //--- Dropdown do assunto ---
+    //Dropdown do assunto
     dropdownAssuntoSelected.addEventListener('click', function(event) {
         dropdownAssuntoOptions.classList.toggle('open')
         event.stopPropagation()
@@ -242,27 +242,27 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Eventos Carousel ---
     function initEventCarousel() {
-    const eventTrack = document.querySelector('.events-track')
-    const eventWrapper = document.querySelector('.events-mask')
-    const eventPrevBtn = document.getElementById('event-prev')
-    const eventNextBtn = document.getElementById('event-next')
+        const eventTrack = document.querySelector('.events-track')
+        const eventWrapper = document.querySelector('.events-mask')
+        const eventPrevBtn = document.getElementById('event-prev')
+        const eventNextBtn = document.getElementById('event-next')
     
-    let eventIndex = 0;
+        let eventIndex = 0;
 
-    function updateEventCarousel() {
-        const cartao = eventTrack.querySelector('.event-card')
-        if (!cartao) return
+        function updateEventCarousel() {
+            const cartao = eventTrack.querySelector('.event-card')
+            if (!cartao) return
 
-        const espaco = parseFloat(window.getComputedStyle(eventTrack).gap) || 0
-        const tamanhoSalto = cartao.offsetWidth + espaco
+            const espaco = parseFloat(window.getComputedStyle(eventTrack).gap) || 0
+            const tamanhoSalto = cartao.offsetWidth + espaco
 
-        const limiteMaximo = Math.max(0, eventTrack.scrollWidth - eventWrapper.offsetWidth)
+            const limiteMaximo = Math.max(0, eventTrack.scrollWidth - eventWrapper.offsetWidth)
         
-        let movimento = eventIndex * tamanhoSalto
+            let movimento = eventIndex * tamanhoSalto
         
-        if (movimento >= limiteMaximo) {
-            movimento = limiteMaximo
-            eventIndex = Math.floor(limiteMaximo / tamanhoSalto);
+            if (movimento >= limiteMaximo) {
+                movimento = limiteMaximo
+                eventIndex = Math.ceil(limiteMaximo / tamanhoSalto);
         }
 
         eventTrack.style.transform = `translateX(-${movimento}px)`
@@ -338,4 +338,3 @@ document.addEventListener('DOMContentLoaded', () => {
 }
 }
 )
-    
