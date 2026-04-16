@@ -1,4 +1,0 @@
-const CONFIG = {
-    GNEWS_API_KEY: "7dae07e8899b55aa92d932eeac3aa623",
-    WEATHER_API_KEY: '5b167cac5066ab049e298bff51a81174'
-};
