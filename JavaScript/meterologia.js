@@ -1,4 +1,4 @@
-const API_KEY = "f8958ea324195180d8bfc203a10b86ea"; 
+const API_KEY = CONFIG.WEATHER_API_KEY 
 
 async function atualizarMeteorologiaEventos(eventos) {
     

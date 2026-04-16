@@ -1,90 +1,63 @@
-PEI 1
- João Bento 2023110753
- Manuel Santos 2023110848
- Yuri Moreira 2023118908
+PEI 3
+Bacar Silla: 2023112223
+Manuel Santos: 2023110848
+Rafael Medeiros: 2024109280
 
-
-Cores:
-
-Azul marinho #0B2545, utilizado como cor principal. Transmite seriedade, cria um bom contraste com o restante das cores escolhidas e enquadra-se no tema de saúde do site
-
-Verde água #29B89E, utilizado nos títulos de cada secção apenas pelo seu contraste e para evitar um site monocromático em todos os detalhes, é também uma cor recorrente no ambiente clínico.
-
-Azul claro #3371F2, utilizado para alguns botões interativos por ser uma cor que contrasta bem com o azul marinho, evitando que a cor principal se torne repetitiva
- ou imperceptível em algumas zonas do site
-
-Azul gelo #EEF4ED, utilizado para background dos cards para ter um efeito mais discreto, manter os contrastes em diferentes tons de azul e evitar o branco sobre branco  
-
-Branco #ffffff, utlizado como background de todo o site, semelhante a um ambiente clínico/hospitalar destaca-se pela sua sobriedade e dá espaço para qualquer cor se destacar.
-O contraste com as cores escolhidas deixa o site facilmente legível e com um aspeto organizado.
-
-Fonte: Montserrat
-Esta fonte foi escolhida pela sua boa legibilidade e minimalismo, juntamente com a escollha de cores é uma combinação que atende a grande parte do público, pois o azul é dificilmente alterado
-na maioria dos tipos de daltonismo e a simplicidade e geometria da fonte facilita a leitura para pessoa com deficiências visuais.
-
-Benchmarking:
-
-CCAL (Centro clínico académico de Lisboa) - secção hero, secção notícias e eventos (utilização dos cards em linhas de 3) e organização da informação.
-
-Este site contribuiu para o nosso trabalho principalmente pela utilização dos cards em linha para apresentar a informação, é um visual limpo e organizado por isso decidimos adotá-lo.
-No entanto, para manter a simplicidade, ao contrário do CCAL decidimos apenas deixar visível o título de cada notícia com a opção de um botão "saber mais" para quem busca mais informação,
-contudo, por mais que seja uma boa estratégia para reduzir o texto na página inicial limita também os detalhes dados porque nesta fase do trabalho trabalhamos só com a landing page.
-
-CCAB (Centro clínico académico das beiras) - baseamo-nos apenas na estrutura da barra de navegação do site.
-
-CAC-CL (Centro clínico académico católica luz) - baseamo-nos principalmente na secção de eventos pela sua criatividade e no footer com a adição de uma newsletter, a forma como a informação foi distribuída
-ao longo de todo o site também foi utilizada por nós, pois transmite a informação de uma forma clara e objetiva e de modo a chamar a atenção do utilizador.
-
-#----------------------------------------------------------------------------------------------------------------------------------------#
-
-PEI 2
-João Bento 2023110753
-Rafael Medeiros 2024109280
-Yuri Moreira 2023118908
-
-Acessibilidade Visual:
-    Cores:
-        Background: 
-            --white #ffffff
-                Cor utilizada para o background da página, promove um excelente contraste, passando em todos os testes WCAG AAA com práticamente todas as outras cores utilizadas.
-            
-            --bg-light: #EEF4ED
-                Esta cor é utilizada para backgrounds de cards e outras situações similares, sendo emparelhada com preto #000000 ou a cor primária #0B2545. Passa em todos os testes WCAG AAA.
-
-        Comparações:
-            --primary color: #0B2545
-                Apresenta um contraste de 15.38:1, passando os testes WCAG AAA para texto normal, trexto grande e elementos gráficos.
-
-            --accent-color: #29B89E
-                Apresenta um contraste de 2.48:1, não passando os testes. Esta cor será alterada para #1B8572. 
-            Nova --accent-color: #1B8572
-                Apresenta um contraste de 4.52:1, falhando apenas o teste WCAG AAA para texto normal, como é utilizado apenas em textos maiores isto não terá muito impacto.
-
-            --accent-color1: #3371F2
-                Apresenta um contraste de 4.38:1, não passando os testes WCAG AAA necessários à sua utilidade. Esta cor será alterada para #2C6BF2.
-            Nova --accent-color1: #2C6BF2
-                Apresenta um contraste de 4.67:1, falhando apenas o teste WCAG AAA para texto normal, passando nos restantes necesseários à sua utilidade.
-
-            --text-color: #000000
-                Cor utilizada para texto, cumpre com todos os testes WCAG AAA com os backgrounds utilizados.
-
-        A utilização destas cores permitem acessibilidade a pessoas com deficiências visuais, como por exemplo, Visão Desfocada, Contraste Reduzido e Daltonismo.
-
-    Fonte:
-        Montserrat
-            Esta fonte foi escolhida pela sua boa legibilidade e minimalismo, possui um espaçamento uniforme entre cada letra e foi criada utilizando formas geométricas perfeitas, isto promove acessibilidade para pessoas com deficiências visuais, por exemplo, Dislexia.
-    
-
-    Dark Mode
-        Utilizado um background escuro com letras claras para melhor acessibilidade (contraste) e/ou preferência do usuário. 
-            
-Acessibilidade Motora:
-    Espaço entre clicáveis para utilizadores com dificuldades motoras
-    Resizing correto para os diferentes dispositivos.
-
-Outras Acessibilidades (Preferencias):
-    media queries (reduced motion)
-        Verifica se o utilizador tem reduced motion ativado e "desativa" as transições
+Descrição do Projeto:
+    O nosso projeto consiste num site dinamico e interativo focado na área da saúde.
+    - É possivel fazer a gestão de eventos, com a informação do tempo no local do evento, que são armazenados localmente usando o IndexedDB
+    - É possivel subscrever à newsletter sendo os dados guardados localmente no IndexedDB, sendo que se o email da pessoa já estiver armazenado, aparece mensagem de erro
+    - Aparece localização dos eventos e do CACA no mapa 
 
 
 
+ Instruções para configurar e executar a aplicação localmente:
+    Para usar o site localmente, é necessario fazer download ou clonar o repositorio do github.
+    Para ter acesso às funcionalidades que envolvem APIs é necessário trocar a variavel das APIs no ficheiro config.example, encontrado na pasta JavaScript, basta trocar cada variável pela respetiva API, de seguida é necessário ir onde essas variaveis são chamadas e trocar o caminho delas,
+    de CONFIG.WEATHER_API_KEY para CONFIG.EXAMPLE.WEATHER_API_KEY e o mesmo para outras APIS
+    Depois disso basta abrir o index.html ou entao usar a extensão live server pra abrir o site no browser.
+    Para adicionar eventos é preciso ligar o modo admin, que é feito através de um botão escondido no simbolo do copyright no footer.
+    De seguida, ir pra área dos eventos e adicionar os eventos desejados, inserindo nome, data e local.
+
+
+Explicação da arquitetura de dados da IndexedDB:
+    O nosso projeto usa o IndexedDB para armazenar dados diretamente no browser do utilizador, guardando informações após a saída do utilizador do site.
+    Existe uma base de dados chamada CacaDB onde existe 2 tabelas, uma delas serve pra guardar os eventos, permitindo aplicar o CRUD, sendo assim,
+    é possivel criar, editar, ler e apagar eventos consoante seja necessário. A outra tabela que existe é a tabela de subscritores da nossa newsletter, permitindo guardar informações da pessoa que se inscreveu, impedindo que um mesmo email seja utilizado mais que uma vez.
+
+    Para a tabela dos eventos a chave principal é o id, que é incremementado de forma automática assim que um novo evento é adicionado. 
+    São armazenados em objetos, contento um par chave-valor, tendo informações como o nome, data, hora, local e descrição do evento
+    Para a tabela dos subscritores a chave principal é o email da pessoa, não permitindo assim emails duplicados.
+    Assim como a tabela dos eventos, são armazenados em objetos com par chave-valor, contendo o email, nome, indicativo do país, numero de telémovel e a mensagem que mandaram.
+
+    Para garantir que o site não fique lento enquanto comunicamos com a base de dados, todas as funções de manipulação de dados foram construídas utilizando Promises. Isto permite que o JavaScript execute outras tarefas.
+
+    Como que as funções comunicam com o site:
+        initDB(): Antes de qualquer clique, esta função devolve uma promessa que, ao ser concluida, garante que a base de dados está aberta e as tabelas prontas a usar.
+
+        adicionarEventoDB(evento): Quando o formulário é submetido, esta função cria uma promessa. O site só limpa o formulário e fecha o menu dos eventos quando a base de dados confirma que o evento foi gravado com sucesso.
+
+        carregarEventosDB(): Esta é a função de leitura. Ela devolve uma promessa contendo a lista de todos os objetos guardados. O site espera por esta resposta para mostrar os eventos.
+
+        atualizarEventoDB(evento): Funciona de forma semelhante à adição, mas utiliza o ID do evento para encontrar o objeto correto e substituir os valores antigos pelos novos. A interface só atualiza a lista após a confirmação desta promessa.
+
+        removerEventoDB(id): Envia um pedido para apagar um registo específico. Assim que a promessa é resolvida, o JavaScript faz automaticamente um novo desenho do ecrã para remover o cartão visualmente.
+
+        adicionarSubscritorDB(subscritor): É a única função que gere dois estados ao mesmo tempo:
+            Sucesso (resolve): O e-mail é novo e foi guardado.
+
+            Erro (reject): O e-mail já existe na base de dados. O site usa esta resposta negativa para mostrar um aviso vermelho ao utilizador.
+
+
+Descrição das APIs externas utilizadas e como foram integradas:
+    O nosso projeto utiliza 3 APIs, é utilizada a API do Open Weather Map, Gnews e
+
+    API do Open Weather Map:
+        É usada em conjunto com os nossos eventos, mostrando uma previsão do tempo para o local de cada evento.
+        Para cada evento presente na base de dados, o sistema pega no campo local e o ficheiro eventos.js comunica com a API do tempo passando essa cidade como parâmetro devolvendo um objeto com todas as informaçoes do tempo desse local.
+        Para os ícones, em vez de ter diversos simbolos ou emojis no nosso código, nós optamos por pegar no simbolo que ja vem com a API, devolvendo um código como por exemplo "01d". O nosso código converte esse código num URL de imagem oficial do OpenWeather, colocando o ícone correspondente diretamente no cartão do evento.
+
+    API do Gnews:
+        É usada para transmitir notícias reais ao utilizador sobre o ambiente da saúde em Porgugal.
+        O ficheiro noticias.js realiza um pedido à API da GNews, filtrando pelas palavras-chave saúde e Portugal com limite de 3 resultados.
+        Como os títulos da API podem ser muito extensos, implementámos uma lógica de truncagem podendo ter no máximo 75 caracteres para manter a integridade do design dos cartões.
