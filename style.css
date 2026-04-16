@@ -662,6 +662,9 @@ ul {
 }
 
 .card-content {
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
     padding: 20px;
     position: relative;
     z-index: 1;

@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // --- INICIAR A BASE DE DADOS ---
     initDB().then(function() {
-        desenharEventosNoEcra();
+        desenharEventosNoEcra()
     });
 
 
@@ -16,19 +16,25 @@ document.addEventListener('DOMContentLoaded', function() {
             let htmlParaMostrar = ""
 
             listaDeEventos.forEach(function(evento) {
-                htmlParaMostrar += `
-                    <article class="card event-card">
-                        <div class="card-image"><img src="media/evento1.png" alt="Evento"></div>
-                        <div class="event-card-actions">
-                            <button class="event-action-btn botao-editar" data-id="${evento.id}">Editar</button>
-                            <button class="event-action-btn botao-apagar" data-id="${evento.id}">Apagar</button>
+               htmlParaMostrar += `
+                <article class="card event-card">
+                    <div class="card-image">
+                        <img src="media/evento1.png" alt="Evento">
+                    </div>
+
+                    <div class="event-card-actions">
+                        <button class="event-action-btn botao-editar" data-id="${evento.id}">Editar</button>
+                        <button class="event-action-btn botao-apagar" data-id="${evento.id}">Apagar</button>
+                    </div>
+                    <div class="card-content">
+                        <h4>${evento.nome}</h4>
+                        <p class="meta">🕒 ${evento.hora} | 📍 ${evento.local}</p>
+                        <div id="weather-${evento.id}">
+                            ola
                         </div>
-                        <div class="card-content">
-                            <h4>${evento.nome}</h4>
-                            <p class="meta">🕒 ${evento.hora} | 📍 ${evento.local}</p>
-                        </div>
-                    </article>
-                `
+                    </div>
+                </article>
+            `;
             })
 
             htmlParaMostrar += `
@@ -41,6 +47,7 @@ document.addEventListener('DOMContentLoaded', function() {
             `
 
             areaDosEventos.innerHTML = htmlParaMostrar
+            atualizarMeteorologiaEventos(listaDeEventos)
 
             ativarBotoes()
         })
