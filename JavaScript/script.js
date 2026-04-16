@@ -80,9 +80,11 @@ document.addEventListener('DOMContentLoaded', () => {
       FUNCTIONS
      */
 
-    //Função switch do menu para telemovel
+    /**
+     * Muda a classe active no menu de navegação, mostrando ou ocultando o menu em dispositivos móveis.
+     */    
     function toggleMenu() {
-    menuLinks.classList.toggle('active')
+        menuLinks.classList.toggle('active')
 }
 
 
@@ -189,7 +191,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
     
- //Changes scroll to top button, as user scrolls down
+    /**
+      Controla a visibilidade e a cor do botão Voltar ao Topo consoante a 
+      percentagem atual de scroll da página.
+     */    
     function scrollPos(){
        const alturaTotal = document.documentElement.scrollHeight - window.innerHeight
        const percentagemScroll = (window.scrollY / alturaTotal) * 100
@@ -210,7 +215,9 @@ document.addEventListener('DOMContentLoaded', () => {
           }
     }
 
-     //Makes user go to top of the page
+     /**
+     * Faz um scroll suave de volta para o topo da página.
+     */
     function voltarAoTopo() {
         window.scrollTo({
             top: 0,
@@ -284,7 +291,9 @@ document.addEventListener('DOMContentLoaded', () => {
 }
 
 
-    // --- Modo Admin ---
+    /**
+     * Adiciona e remove a classe do admin-mode ao body consoante o estado atual de administrador.
+     */    
     let isAdmin = localStorage.getItem('caca_admin') === 'true'
     function initAdminClass() {
         if (isAdmin) {

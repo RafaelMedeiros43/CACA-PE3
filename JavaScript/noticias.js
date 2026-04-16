@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     try {
        
-        const API_KEY = 'c6d03bcdc7e064e8809605567b812f83';
+        const API_KEY = CONFIG.GNEWS_API_KEY
         const url = `https://gnews.io/api/v4/search?q=saúde&country=pt&max=3&apikey=${API_KEY}`
 
         const resposta = await fetch(url)
@@ -21,8 +21,8 @@ document.addEventListener('DOMContentLoaded', async () => {
                 const imagemEscolhida = noticia.image
                 const linkDaNoticia = noticia.url
                 const titulo = noticia.title
-                let tituloFinal
-                if (titulo.length > 30) {
+                let tituloFinal = titulo
+                if (titulo.length > 75) {
                     tituloFinal = titulo.substring(0, 75) + '...'
                 }
 
@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                             <h4>${tituloFinal}</h4>
                         </div>
                         <a href="${linkDaNoticia}" target="_blank" class="link-blue">Ler artigo completo</a>
-                    </article>`
+                    </article> `
             })
 
             areaNoticias.innerHTML = htmlParaMostrar
